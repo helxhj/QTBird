@@ -25,6 +25,10 @@ private:
     // 重写键盘事件，空格控制小鸟
     void keyPressEvent(QKeyEvent* event);
 
+private slots:
+    void onRefreshBird();       // 定时刷新小鸟
+    void onFlyRaiseAnimationFinished(); // 上升动画结束
+
 private:
     bool m_IsLandFall;  // 下降标志
     bool m_isRaise;     // 上升标志

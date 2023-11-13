@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/BirdGame">
+        <file>Resources/image/bird1.png</file>
+        <file>Resources/image/bird2.png</file>
+        <file>Resources/image/bird3.png</file>
+    </qresource>
+</RCC>
