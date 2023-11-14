@@ -21,6 +21,7 @@ SOURCES += \
     gamescene.cpp \
     main.cpp \
     gamewindow.cpp \
+    pipeitem.cpp \
     roaditem.cpp
 
 HEADERS += \
@@ -28,6 +29,7 @@ HEADERS += \
     buttonitem.h \
     gamescene.h \
     gamewindow.h \
+    pipeitem.h \
     roaditem.h
 
 FORMS += \

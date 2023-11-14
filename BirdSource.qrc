@@ -7,5 +7,7 @@
         <file>Resources/image/background.png</file>
         <file>Resources/image/startButton.png</file>
         <file>Resources/image/road.png</file>
+        <file>Resources/image/tubedown.png</file>
+        <file>Resources/image/tubeup.png</file>
     </qresource>
 </RCC>

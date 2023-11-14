@@ -1,6 +1,7 @@
 #include "gamewindow.h"
 #include "ui_gamewindow.h"
 #include "buttonitem.h"
+#include "pipeitem.h"
 #include <QFile>
 #include <QGraphicsView>
 #include <QSequentialAnimationGroup>
@@ -74,6 +75,7 @@ void GameWindow::startWelcome()
     // 道路
     RoadItem* roadItem = new RoadItem(m_scene);
     // 管道
+    PipeItem * pipeItem = new PipeItem(m_scene);
 
     // 小鸟
     m_birdItem = new BirdItem(m_scene);

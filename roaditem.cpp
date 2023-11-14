@@ -3,9 +3,8 @@
 #include <QPropertyAnimation>
 #include <QDebug>
 // 马路的高度
-#define ROAD_ITEM_HEIGHT  64
-
-
+ // const int ROAD_ITEM_HEIGHT = 64;
+#define ROAD_ITEM_HEIGHT 64
 RoadItem::RoadItem(QGraphicsScene* scene)
     : m_scene(scene)
 {
