@@ -12,7 +12,7 @@ class BirdItem : public QGraphicsObject
     Q_OBJECT
 public:
     BirdItem(QGraphicsScene* scene);
-
+    ~BirdItem();
 public:
     // 返回你的图形所在的矩形，比如鸟儿所在的矩形
     QRectF boundingRect()const;// 重写绘图区域

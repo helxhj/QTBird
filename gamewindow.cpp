@@ -1,10 +1,12 @@
 #include "gamewindow.h"
 #include "ui_gamewindow.h"
+#include "buttonitem.h"
 #include <QFile>
 #include <QGraphicsView>
 #include <QSequentialAnimationGroup>
 #include <QPropertyAnimation>
 #include <QStyleOption>
+
 GameWindow::GameWindow(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::GameWindow)
@@ -133,6 +135,11 @@ void GameWindow::startWelcome()
 
     // 启动策略，动画在停止后删除
     letterGroupMoving->start(QAbstractAnimation::DeleteWhenStopped);
+
+    // 添加按钮图形项
+    QPixmap pix = QPixmap(":/BirdGame/Resources/image/startButton.png");
+    ButtonItem* btnItem = new ButtonItem(pix,m_scene);
+    btnItem->setPos(QPoint(250,300));
 
 }
 

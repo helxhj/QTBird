@@ -28,6 +28,11 @@ BirdItem::BirdItem(QGraphicsScene* scene)
 
 }
 
+BirdItem::~BirdItem()
+{
+
+}
+
 // 重写绘图区域
 QRectF BirdItem::boundingRect() const
 {

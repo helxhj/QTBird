@@ -9,6 +9,7 @@ class GameScene : public QGraphicsScene
 public:
     // sceneRect场景的大小
     GameScene(QObject* parent,const QRectF& sceneRect);
+    ~GameScene();
 };
 
 #endif // GAMESCENE_H

@@ -17,12 +17,14 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     birditem.cpp \
+    buttonitem.cpp \
     gamescene.cpp \
     main.cpp \
     gamewindow.cpp
 
 HEADERS += \
     birditem.h \
+    buttonitem.h \
     gamescene.h \
     gamewindow.h
 

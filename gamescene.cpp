@@ -6,3 +6,8 @@ GameScene::GameScene(QObject* parent,
 {
 
 }
+
+GameScene::~GameScene()
+{
+
+}
