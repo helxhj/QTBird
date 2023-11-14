@@ -23,7 +23,8 @@ public:
 protected:
     // 重写绘图事件
     void paintEvent(QPaintEvent* event);
-
+    // 重写按键事件
+    void keyPressEvent(QKeyEvent *event);
 private:
     void initControl();     // 初始化控件
     // 加载样式
@@ -37,7 +38,7 @@ private slots:
     void onStartBtnClicked();
     // 定时检测游戏状态是否是输了
     void onCheckGameStatus();
-    void handleError(QMediaPlayer::Error);
+
 private:
     Ui::GameWindow *ui;
     GameScene* m_scene;     // 游戏场景

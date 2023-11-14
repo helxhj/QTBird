@@ -26,6 +26,8 @@ BirdItem::BirdItem(QGraphicsScene* scene)
     // 通过设置小鸟位置属性值，达到动画效果
     m_flyAnimation = new QPropertyAnimation(this,"pos");
 
+    connect(m_flyAnimation,SIGNAL(finished())
+            ,this,SLOT(onFlyRaiseAnimationFinished()));
 }
 
 BirdItem::~BirdItem()
@@ -62,18 +64,17 @@ void BirdItem::flyRaiseAnimation()
         }
         // 动画运动的曲线（规律）
         // QEasingCurve::Linear线性
-        m_flyAnimation->setEasingCurve(QEasingCurve::Linear);
+        m_flyAnimation->setEasingCurve(QEasingCurve::InQuad);
         m_flyAnimation->start();
         // 动画结束，让其下落
-        connect(m_flyAnimation,SIGNAL(finished())
-                ,this,SLOT(onFlyRaiseAnimationFinished()));
+
     }
 }
 // 下降动画
 void BirdItem::flyLandfallAnimation()
 {
     if(m_IsLandFall){
-        m_IsLandFall = false;
+        // m_IsLandFall = false;
         m_flyAnimation->stop();
 
         m_flyAnimation->setDuration(300);
@@ -81,6 +82,7 @@ void BirdItem::flyLandfallAnimation()
         m_flyAnimation->setEndValue(QPoint(pos().x(),pos().y() + FLY_BIRD_SIZE));
         m_flyAnimation->setEasingCurve(QEasingCurve::InQuad);
         m_flyAnimation->start();
+
     }
 }
 

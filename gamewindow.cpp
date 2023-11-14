@@ -37,6 +37,13 @@ void GameWindow::paintEvent(QPaintEvent *)
     style()->drawPrimitive(QStyle::PE_Widget,&opt,&p,this);
 }
 
+void GameWindow::keyPressEvent(QKeyEvent *event)
+{
+    if(m_startGame){
+        m_birdItem->keyPressEvent(event);
+    }
+}
+
 void GameWindow::initControl()
 {
     // 加载样式
@@ -166,11 +173,66 @@ void GameWindow::startWelcome()
         m_startGame = true;
         m_checkGameStatusTimer->start(50);
         m_birdItem->flyLandfallAnimation(); // 往下边掉
+
+        m_welcomePlayer->stop();
+        m_welcomePlayerList->clear();
+        m_welcomePlayerList->addMedia(QUrl("qrc:/BirdGame/Resources/sound/background.mp3"));
+        m_welcomePlayer->play();
     });
 }
 
 void GameWindow::GameOver()
 {
+    // “墙都不扶，就服你”
+    const int nLetters = 9;
+    struct{
+        char const* pix; // 字符 如 “飞”
+        qreal initX,initY;    // 字符起始坐标
+        qreal destX,destY;    // 字符结束坐标
+    }letterData[nLetters] = {
+    {"墙",-100,-1000,200,160},
+    {"都",1000,2000,250,160},
+    {"不",800,2000,300,160},
+    {"服",600,2000,350,160},
+    {"，",400,2000,400,160},
+    {"就",200,2000,225,220},
+    {"服",0,2000,275,220},
+    {"你",0,2000,325,220},
+    {"!",0,2000,375,220},
+    };
+
+    // game over 文字动画组
+    QParallelAnimationGroup* lettersGroupMoving = new QParallelAnimationGroup(this);
+    for(int i = 0;i < nLetters;i++){
+        // 文本图形项
+        QString htmlText = QString("<span style=\"font-family:'Berlin Sans FB';font-size:38px;font-weight:600;color:#194819;\">%1</span>")
+                .arg(letterData[i].pix);
+        QGraphicsTextItem* letter = new QGraphicsTextItem();
+        letter->setHtml(htmlText);
+        letter->setPos(letterData[i].initX,letterData[i].initY);
+
+        // 文本项属性动画
+        QPropertyAnimation* moveAnimation = new QPropertyAnimation(letter,"pos",lettersGroupMoving);
+        // 设置字符动画结束的位置
+        moveAnimation->setEndValue(QPointF(letterData[i].destX,letterData[i].destY));
+        moveAnimation->setDuration(200);
+        moveAnimation->setEasingCurve(QEasingCurve::OutElastic);
+
+        // 往场景中添加
+        m_scene->addItem(letter);
+    }
+
+    lettersGroupMoving->start(QAbstractAnimation::DeleteWhenStopped);
+
+    // 将小鸟图形项移出
+    m_scene->removeItem(m_birdItem);
+
+    // 游戏结束 音效
+    m_welcomePlayer->stop();
+    m_welcomePlayerList->clear();
+    m_welcomePlayer->setMedia(QUrl("qrc:/BirdGame/Resources/sound/gameover.wav"));
+    m_welcomePlayer->setVolume(50); // 0-100
+    m_welcomePlayer->play();
 
 }
 
@@ -186,14 +248,13 @@ void GameWindow::initBackGroundMusic()
     // 将音乐添加到列表中
     m_welcomePlayerList->addMedia(QUrl("qrc:/BirdGame/Resources/sound/welcome.mp3"));
     // ..添加其他播放音乐
-
+    m_welcomePlayerList->addMedia(QUrl("qrc:/BirdGame/Resources/sound/freelikewind.mp3"));
     // 当前项目循环播放
-    m_welcomePlayerList->setPlaybackMode(QMediaPlaylist::CurrentItemInLoop);
+    m_welcomePlayerList->setPlaybackMode(QMediaPlaylist::Loop);
+    m_welcomePlayerList->setCurrentIndex(1);
    // 将播放列表设置到播放器中
     m_welcomePlayer->setPlaylist(m_welcomePlayerList);
     m_welcomePlayer->play();
-    connect(m_welcomePlayer, SIGNAL(error(QMediaPlayer::Error)), this, SLOT(handleError(QMediaPlayer::Error)));
-
 }
 
 void GameWindow::onStartBtnClicked()
@@ -209,10 +270,6 @@ void GameWindow::onCheckGameStatus()
     if(m_birdItem->checkIsCollided()){
         GameOver();
     }
-}
-
-void GameWindow::handleError(QMediaPlayer::Error error) {
-    qDebug() << "Error: " << error << " - " << m_welcomePlayer->errorString();
 }
 
 

@@ -10,6 +10,8 @@ public:
     PipeItem(QGraphicsScene* scene);
     ~PipeItem();
 
+    // 图形项
+    QPainterPath shape()const;
 protected:
     // 重写绘图区域
     QRectF boundingRect()const;

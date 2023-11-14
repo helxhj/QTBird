@@ -19,6 +19,16 @@ PipeItem::~PipeItem()
 
 }
 
+QPainterPath PipeItem::shape() const
+{
+    QPainterPath path;
+    path.addRect(QRectF(m_scene->width(),0,
+                        PIPE_WIDTH,m_upPipeHeight));
+    path.addRect(QRectF(m_scene->width(),m_scene->height()- 60 - m_downPipeHeight,
+                        PIPE_WIDTH,m_downPipeHeight));
+    return path;
+}
+
 QRectF PipeItem::boundingRect() const
 {
     return QRectF(m_scene->width(),0,PIPE_WIDTH,m_scene->height());

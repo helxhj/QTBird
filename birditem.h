@@ -23,6 +23,7 @@ public:
 private:
     // 重写绘图事件
     void paint(QPainter* ,const QStyleOptionGraphicsItem*,QWidget*);
+public:
     // 重写键盘事件，空格控制小鸟
     void keyPressEvent(QKeyEvent* event);
 
