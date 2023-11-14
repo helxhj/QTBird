@@ -3,6 +3,8 @@
 
 #include <QWidget>
 #include <QParallelAnimationGroup>
+#include <QMediaPlayer>
+#include <QMediaPlaylist>
 #include "gamescene.h"
 #include "birditem.h"
 #include "roaditem.h"
@@ -29,10 +31,13 @@ private:
     // 启动欢迎
     void startWelcome();
     void GameOver();    // 游戏结束
+
+    void initBackGroundMusic(); // 初始化背景音乐
 private slots:
     void onStartBtnClicked();
     // 定时检测游戏状态是否是输了
     void onCheckGameStatus();
+    void handleError(QMediaPlayer::Error);
 private:
     Ui::GameWindow *ui;
     GameScene* m_scene;     // 游戏场景
@@ -41,5 +46,8 @@ private:
     // 渐渐消失 动画组
     QParallelAnimationGroup* m_letterGroupFading;
     QTimer* m_checkGameStatusTimer; // 检测游戏状态
+
+    QMediaPlayer* m_welcomePlayer;  // 欢迎音乐
+    QMediaPlaylist* m_welcomePlayerList;    // 片头音乐播放列表
 };
 #endif // GAMEWINDOW_H

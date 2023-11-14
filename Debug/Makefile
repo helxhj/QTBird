@@ -248,8 +248,10 @@ Makefile: ../BirdGame.pro D:/QT/5.12.9/mingw73_64/mkspecs/win32-g++/qmake.conf D
 		D:/QT/5.12.9/mingw73_64/mkspecs/features/yacc.prf \
 		D:/QT/5.12.9/mingw73_64/mkspecs/features/lex.prf \
 		../BirdGame.pro \
+		D:/QT/5.12.9/mingw73_64/lib/Qt5Multimedia.prl \
 		D:/QT/5.12.9/mingw73_64/lib/Qt5Widgets.prl \
 		D:/QT/5.12.9/mingw73_64/lib/Qt5Gui.prl \
+		D:/QT/5.12.9/mingw73_64/lib/Qt5Network.prl \
 		D:/QT/5.12.9/mingw73_64/lib/Qt5Core.prl \
 		D:/QT/5.12.9/mingw73_64/lib/qtmain.prl
 	$(QMAKE) -o Makefile ..\BirdGame.pro -spec win32-g++ "CONFIG+=debug" "CONFIG+=qml_debug"
@@ -438,8 +440,10 @@ D:/QT/5.12.9/mingw73_64/mkspecs/features/exceptions.prf:
 D:/QT/5.12.9/mingw73_64/mkspecs/features/yacc.prf:
 D:/QT/5.12.9/mingw73_64/mkspecs/features/lex.prf:
 ../BirdGame.pro:
+D:/QT/5.12.9/mingw73_64/lib/Qt5Multimedia.prl:
 D:/QT/5.12.9/mingw73_64/lib/Qt5Widgets.prl:
 D:/QT/5.12.9/mingw73_64/lib/Qt5Gui.prl:
+D:/QT/5.12.9/mingw73_64/lib/Qt5Network.prl:
 D:/QT/5.12.9/mingw73_64/lib/Qt5Core.prl:
 D:/QT/5.12.9/mingw73_64/lib/qtmain.prl:
 qmake: FORCE

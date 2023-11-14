@@ -45,6 +45,11 @@ void PipeItem::startMove()
     moveAnimation->setStartValue(QPoint(0,pos().y()));
     moveAnimation->setEndValue(QPoint(0-m_scene->width()-PIPE_WIDTH,pos().y()));
     moveAnimation->start();
+    // 动画循环次数改变时，则创建管道
+    connect(moveAnimation,&QPropertyAnimation::currentLoopChanged
+            ,[this](){
+        createPipeHeight();
+    });
 }
 
 // 创建管道高度

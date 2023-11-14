@@ -8,6 +8,7 @@
 #include <QPropertyAnimation>
 #include <QStyleOption>
 #include <QTimer>
+#include <QDebug>
 
 GameWindow::GameWindow(QWidget *parent)
     : QWidget(parent)
@@ -16,7 +17,10 @@ GameWindow::GameWindow(QWidget *parent)
 {
     ui->setupUi(this);
     initControl();
+    initBackGroundMusic();
     setWindowTitle("飞翔的小鸟");
+
+
 }
 
 GameWindow::~GameWindow()
@@ -47,7 +51,7 @@ void GameWindow::initControl()
     QGraphicsView* view = new QGraphicsView(m_scene,this);
     view->setScene(m_scene); // 设置游戏场景
     // 视图没有边框，背景透明
-    view->setStyleSheet("border:nonr;background:transparent;");
+    view->setStyleSheet("border:none;background:transparent;");
     // 设置缓存为背景模式
     view->setCacheMode(QGraphicsView::CacheBackground);
     startWelcome();
@@ -153,7 +157,7 @@ void GameWindow::startWelcome()
     QPropertyAnimation* fadeAnimation = new QPropertyAnimation(btnItem,"opacity",m_letterGroupFading);
     fadeAnimation->setDuration(600); // 动画时长600ms
     fadeAnimation->setEndValue(0);  // 结束值 opacity为0就完全透明
-    fadeAnimation->setEasingCurve(QEasingCurve::OutQuart);
+    fadeAnimation->setEasingCurve(QEasingCurve::OutQuad);
 
     // 按钮点击，游戏开始
     connect(btnItem,SIGNAL(clicked()),this,SLOT(onStartBtnClicked()));
@@ -167,6 +171,28 @@ void GameWindow::startWelcome()
 
 void GameWindow::GameOver()
 {
+
+}
+
+void GameWindow::initBackGroundMusic()
+{
+    m_welcomePlayer = new QMediaPlayer(this);
+    // 添加音乐 , 这样只能播放一次
+//    m_welcomePlayer->setMedia(QUrl("qrc:/BirdGame/Resources/sound/welcome.mp3"));
+//    m_welcomePlayer->setVolume(50); // 音量
+//    m_welcomePlayer->play();
+
+    m_welcomePlayerList = new QMediaPlaylist(m_welcomePlayer);
+    // 将音乐添加到列表中
+    m_welcomePlayerList->addMedia(QUrl("qrc:/BirdGame/Resources/sound/welcome.mp3"));
+    // ..添加其他播放音乐
+
+    // 当前项目循环播放
+    m_welcomePlayerList->setPlaybackMode(QMediaPlaylist::CurrentItemInLoop);
+   // 将播放列表设置到播放器中
+    m_welcomePlayer->setPlaylist(m_welcomePlayerList);
+    m_welcomePlayer->play();
+    connect(m_welcomePlayer, SIGNAL(error(QMediaPlayer::Error)), this, SLOT(handleError(QMediaPlayer::Error)));
 
 }
 
@@ -184,4 +210,9 @@ void GameWindow::onCheckGameStatus()
         GameOver();
     }
 }
+
+void GameWindow::handleError(QMediaPlayer::Error error) {
+    qDebug() << "Error: " << error << " - " << m_welcomePlayer->errorString();
+}
+
 
