@@ -27,6 +27,11 @@ private:
     void loadStyleSheet(const QString& sheetName);
     // 启动欢迎
     void startWelcome();
+    void GameOver();    // 游戏结束
+private slots:
+    void onStartBtnClicked();
+    // 定时检测游戏状态是否是输了
+    void onCheckGameStatus();
 private:
     Ui::GameWindow *ui;
     GameScene* m_scene;     // 游戏场景
@@ -34,6 +39,6 @@ private:
     bool m_startGame;       // 游戏开始标志
     // 渐渐消失 动画组
     QParallelAnimationGroup* m_letterGroupFading;
-
+    QTimer* m_checkGameStatusTimer; // 检测游戏状态
 };
 #endif // GAMEWINDOW_H

@@ -6,6 +6,7 @@
 #include <QSequentialAnimationGroup>
 #include <QPropertyAnimation>
 #include <QStyleOption>
+#include <QTimer>
 
 GameWindow::GameWindow(QWidget *parent)
     : QWidget(parent)
@@ -22,7 +23,7 @@ GameWindow::~GameWindow()
     delete ui;
 }
 
-void GameWindow::paintEvent(QPaintEvent *event)
+void GameWindow::paintEvent(QPaintEvent *)
 {
     // 自定义paint事件
     QStyleOption opt;
@@ -76,6 +77,11 @@ void GameWindow::startWelcome()
 
     // 小鸟
     m_birdItem = new BirdItem(m_scene);
+
+    // 游戏装态检测
+    m_checkGameStatusTimer = new QTimer(this);
+    connect(m_checkGameStatusTimer,SIGNAL(timeout()),
+            this,SLOT(onCheckGameStatus())); // 定时检测游戏状态是否是输了
 
     // 欢迎的字母  “飞吧，像风一样自由，无法挽留..."
     const int nLetters = 15;
@@ -141,5 +147,39 @@ void GameWindow::startWelcome()
     ButtonItem* btnItem = new ButtonItem(pix,m_scene);
     btnItem->setPos(QPoint(250,300));
 
+    // 按钮渐渐消失动画
+    QPropertyAnimation* fadeAnimation = new QPropertyAnimation(btnItem,"opacity",m_letterGroupFading);
+    fadeAnimation->setDuration(600); // 动画时长600ms
+    fadeAnimation->setEndValue(0);  // 结束值 opacity为0就完全透明
+    fadeAnimation->setEasingCurve(QEasingCurve::OutQuart);
+
+    // 按钮点击，游戏开始
+    connect(btnItem,SIGNAL(clicked()),this,SLOT(onStartBtnClicked()));
+    connect(fadeAnimation,&QPropertyAnimation::finished,
+            [this](){
+        m_startGame = true;
+        m_checkGameStatusTimer->start(50);
+        m_birdItem->flyLandfallAnimation(); // 往下边掉
+    });
+}
+
+void GameWindow::GameOver()
+{
+
+}
+
+void GameWindow::onStartBtnClicked()
+{
+    // 启动渐渐消失动画，动画结束后，自己删除
+    m_letterGroupFading->start(QAbstractAnimation::DeleteWhenStopped);
+
+}
+
+void GameWindow::onCheckGameStatus()
+{
+    // 鸟儿和其他场景有冲突(碰撞)
+    if(m_birdItem->checkIsCollided()){
+        GameOver();
+    }
 }
 
