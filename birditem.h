@@ -3,6 +3,7 @@
 
 #include <QGraphicsObject>
 #include <QPropertyAnimation>
+#include <QGraphicsScene>
 // QGraphicsObject图形项对象
 // 游戏中的鸟儿对象（图形项），自定义图形项时，需要重写paint，boundingRect
 //

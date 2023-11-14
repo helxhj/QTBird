@@ -23,7 +23,14 @@ public:
     {
         if (GameWindow->objectName().isEmpty())
             GameWindow->setObjectName(QString::fromUtf8("GameWindow"));
-        GameWindow->resize(800, 600);
+        GameWindow->resize(584, 448);
+        QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(GameWindow->sizePolicy().hasHeightForWidth());
+        GameWindow->setSizePolicy(sizePolicy);
+        GameWindow->setMinimumSize(QSize(584, 448));
+        GameWindow->setMaximumSize(QSize(584, 448));
 
         retranslateUi(GameWindow);
 

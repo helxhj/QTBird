@@ -1,13 +1,14 @@
 #ifndef GAMESCENE_H
 #define GAMESCENE_H
 #include <QGraphicsScene>
-
-class GameScene : public QGrahicsScene
+#include <QRectF>
+// 游戏场景
+class GameScene : public QGraphicsScene
 {
     Q_OBJECT
 public:
     // sceneRect场景的大小
-    GameScene(QObject* parent,QRectF& sceneRect);
+    GameScene(QObject* parent,const QRectF& sceneRect);
 };
 
 #endif // GAMESCENE_H

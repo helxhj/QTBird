@@ -3,5 +3,7 @@
         <file>Resources/image/bird1.png</file>
         <file>Resources/image/bird2.png</file>
         <file>Resources/image/bird3.png</file>
+        <file>Resources/qss/GameWindow.css</file>
+        <file>Resources/image/background.png</file>
     </qresource>
 </RCC>

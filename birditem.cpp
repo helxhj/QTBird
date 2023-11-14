@@ -1,14 +1,18 @@
 #include "birditem.h"
 #include <QPainter>
 #include <QKeyEvent>
+#include <QPoint>
+#include <QTimer>
 #define FLY_BIRD_SIZE 45
 
 // scene游戏主场景，就是 gamescene这个主场景
 BirdItem::BirdItem(QGraphicsScene* scene)
-    : m_curFlyStatus(0),
+    :
       m_IsLandFall(true),
       m_isRaise(true)
 {
+    m_curFlyStatus = 0;
+
     // 添加图形项,就是这个小鸟项
     // 将当前的小鸟对象添加到游戏场景中去
     scene->addItem(this);
@@ -45,10 +49,10 @@ void BirdItem::flyRaiseAnimation()
             // 动画时长
             m_flyAnimation->setDuration(300);
             // 小鸟每次上升一个小鸟的高度
-            m_flyAnimation->setEndValue(QPoint(pos.x(),pos().y()-FLY_BIRD_SIZE));
+            m_flyAnimation->setEndValue(QPoint(this->pos().x(),this->pos().y()-FLY_BIRD_SIZE));
         }else{
             // 小鸟飞到了顶上
-            m_flyAnimation->setDirection(300);
+            m_flyAnimation->setDuration(300);
             m_flyAnimation->setEndValue(pos());
         }
         // 动画运动的曲线（规律）
