@@ -20,13 +20,15 @@ SOURCES += \
     buttonitem.cpp \
     gamescene.cpp \
     main.cpp \
-    gamewindow.cpp
+    gamewindow.cpp \
+    roaditem.cpp
 
 HEADERS += \
     birditem.h \
     buttonitem.h \
     gamescene.h \
-    gamewindow.h
+    gamewindow.h \
+    roaditem.h
 
 FORMS += \
     gamewindow.ui

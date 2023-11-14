@@ -5,6 +5,7 @@
 #include <QParallelAnimationGroup>
 #include "gamescene.h"
 #include "birditem.h"
+#include "roaditem.h"
 QT_BEGIN_NAMESPACE
 namespace Ui { class GameWindow; }
 QT_END_NAMESPACE

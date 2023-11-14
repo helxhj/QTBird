@@ -72,7 +72,7 @@ void GameWindow::loadStyleSheet(const QString &sheetName)
 void GameWindow::startWelcome()
 {
     // 道路
-
+    RoadItem* roadItem = new RoadItem(m_scene);
     // 管道
 
     // 小鸟

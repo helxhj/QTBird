@@ -6,5 +6,6 @@
         <file>Resources/qss/GameWindow.css</file>
         <file>Resources/image/background.png</file>
         <file>Resources/image/startButton.png</file>
+        <file>Resources/image/road.png</file>
     </qresource>
 </RCC>
